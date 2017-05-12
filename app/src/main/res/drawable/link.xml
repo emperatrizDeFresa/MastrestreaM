@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_pressed="true" >
-        <shape android:shape="rectangle"
-               android:shadowColor="#ff000000"
-               android:shadowDx="5"
-               android:shadowDy="5"
-               android:shadowRadius="4">
-            <solid   android:color="@color/colorAccent"/>
-            <corners android:radius="100dp" />
-        </shape>
-    </item>
-    <item android:state_focused="true">
-        <shape android:shape="rectangle"
-               android:shadowColor="#ff000000"
-               android:shadowDx="5"
-               android:shadowDy="5"
-               android:shadowRadius="4">
-            <solid   android:color="@color/colorAccent2"/>
-            <corners android:radius="100dp" />
-        </shape>
-    </item>
-    <item >
-        <shape android:shape="rectangle"
-               android:shadowColor="#ff000000"
-               android:shadowDx="5"
-               android:shadowDy="5"
-               android:shadowRadius="4">
-            <solid   android:color="#ffffff"/>
-            <corners android:radius="100dp" />
-        </shape>
-    </item>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/linkpressed" android:state_pressed="true"/> <!-- pressed -->
+    <item android:drawable="@drawable/linkfocused" android:state_focused="true"/> <!-- focused -->
+    <item android:drawable="@drawable/linkfocused" android:state_selected="true"/> <!-- selected -->
+    <item android:drawable="@drawable/linknormal"/> <!-- default -->
+
 </selector>

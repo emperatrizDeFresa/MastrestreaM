@@ -2,30 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="40dp"
+              android:layout_height="44dp"
             android:background="@drawable/link"
-
+            android:paddingBottom="3dp"
+              android:paddingRight="3dp"
               android:id="@+id/link"
     >
-
 
     <TextView
         android:id="@+id/kbps"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:fontFamily="sans-serif-condensed"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textColor="#000000"
-        android:paddingLeft="30dp"
+        android:paddingTop="1dp"
+        android:textAlignment="center"
         android:text="TextView"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="wrap_content"
+                  android:layout_height="40dp"
+                  android:paddingTop="1dp"
+        >
+        <ImageView
+            android:id="@+id/resolution"
+            android:layout_width="44dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="bottom|left"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:src="@drawable/hd1080"/>
+        <ImageView
+            android:id="@+id/fps"
+            android:layout_width="44dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="top|left"
+            android:paddingRight="4dp"
+            android:paddingBottom="4dp"
+            android:src="@drawable/fps50"/>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/flag"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:paddingRight="1dp"
+        android:paddingTop="1dp"
         android:src="@drawable/rus"/>
 </LinearLayout>

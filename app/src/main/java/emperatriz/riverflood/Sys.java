@@ -123,7 +123,7 @@ public class Sys {
     }
 
     public static String limpia(String st){
-        return st.replace("&mbsp;","").replace("<br />","<br>").replace("<br/>","<br>").replace("\\n","").replace("\\t","").replace("<br>"," ").replace("&Ntilde;","ñ").replace("&acute;","\'");
+        return st.replace("&nbsp;","").replace("<br />","<br>").replace("<br/>","<br>").replace("\\n","").replace("\\t","").replace("<br>"," ").replace("&Ntilde;","ñ").replace("&acute;","\'");
     }
 
     public int getImagenDeporte(int tipo){
@@ -209,9 +209,40 @@ public class Sys {
             case Link.UCR:{
                 return R.drawable.ucr;
             }
+            case Link.FRA:{
+                return R.drawable.fra;
+            }
 
         }
         return R.drawable.des;
+    }
+
+    public int getRes(int tipo){
+        switch (tipo){
+            case Link.HD1080:{
+                return R.drawable.hd1080;
+            }
+            case Link.HD720:{
+                return R.drawable.hd720;
+            }
+            case Link.SD576:{
+                return R.drawable.sd576;
+            }
+
+        }
+        return R.drawable.no;
+    }
+
+    public int getFps(int tipo){
+        switch (tipo){
+            case Link.FPS25:{
+                return R.drawable.fps25;
+            }
+            case Link.FPS50:{
+                return R.drawable.fps50;
+            }
+        }
+        return R.drawable.no;
     }
 
     public static void openAppInPlayStore(String packageName, Context context) {

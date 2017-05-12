@@ -273,6 +273,19 @@ public class LivesportWs implements GestorPagina {
                     }
                     l.kbps = Integer.parseInt(tds.get(2).html().replace(" kbps",""));
                     l.acestream = tds.get(6).getElementsByTag("a").get(0).attr("href").replace("\\\"","");
+                    String res = tds.get(5).html();
+                    switch (res){
+                        case "576p":l.resolution = Link.SD576;break;
+                        case "720p":l.resolution = Link.HD720;break;
+                        case "1080p":l.resolution = Link.HD1080;break;
+                        default:l.resolution = Link.NORES;break;
+                    }
+                    String fps = tds.get(4).html();
+                    switch (fps){
+                        case "25":l.fps = Link.FPS25;break;
+                        case "50":l.fps = Link.FPS50;break;
+                        default:l.fps = Link.NOFPS;break;
+                    }
                     eventos.get(eventoIndex).links.add(l);
 
                 }

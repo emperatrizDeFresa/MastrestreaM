@@ -58,8 +58,6 @@ public class Panel extends Activity {
         getActionBar().setTitle(null);
         getActionBar().setDisplayShowCustomEnabled(true);
         getActionBar().setBackgroundDrawable(new ColorDrawable(0xff000000));
-//        getActionBar().setDisplayShowTitleEnabled(false);
-//        getActionBar().setDisplayShowTitleEnabled(true);
         Spinner webs = new Spinner(this);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Sys.init().getGestores());
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

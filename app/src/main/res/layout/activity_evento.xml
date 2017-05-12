@@ -42,15 +42,16 @@
                 android:gravity="left|center_vertical"
                 android:fontFamily="sans-serif-condensed"
                 android:shadowColor="#000000"
-                android:shadowDx="3"
-                android:shadowDy="3"
-                android:shadowRadius="2"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="0.1"
                 android:textStyle="bold"
                 android:transitionName="horat"
                 android:text="TextView"/>
 
 
             </LinearLayout>
+
         <LinearLayout
             android:id="@+id/texto"
             android:transitionName="textot"
@@ -66,9 +67,9 @@
                 android:textColor="#ffffff"
                 android:gravity="center_horizontal|center_vertical"
                 android:shadowColor="#000000"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="4"
+                android:shadowDx="7"
+                android:shadowDy="7"
+                android:shadowRadius="0.1"
                 android:transitionName="nombret"
                 android:text="TextView"/>
             <TextView
@@ -81,9 +82,9 @@
                 android:maxLines="1"
                 android:fontFamily="sans-serif-condensed"
                 android:shadowColor="#000000"
-                android:shadowDx="4"
-                android:shadowDy="4"
-                android:shadowRadius="3"
+                android:shadowDx="6"
+                android:shadowDy="6"
+                android:shadowRadius="0.1"
                 android:transitionName="competiciont"
                 android:text="TextView"/>
         </LinearLayout>
@@ -95,33 +96,32 @@
                 android:paddingRight="10dp"
                 android:verticalSpacing="20dp"
                 android:horizontalSpacing="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 />
-            <!--<com.github.ybq.android.spinkit.SpinKitView-->
-                <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                <!--android:id="@+id/spin_kit"-->
-                <!--style="@style/SpinKitView.Circle"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="80dp"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginTop="40dp"-->
-                <!--android:visibility="gone"-->
-                <!--app:SpinKit_Color="#ffffff" />-->
+        <LinearLayout
+            android:id="@+id/empty"
+            android:transitionName="textot"
+            android:orientation="vertical"
+            android:layout_width="77dp"
+            android:layout_height="77dp"
+            android:background="@drawable/circulo"
+            android:paddingBottom="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="3dp"
+            android:paddingLeft="3dp"
+            android:layout_marginTop="40dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            >
             <com.crystal.crystalpreloaders.widgets.CrystalPreloader
                 android:id="@+id/spin_kit"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:visibility="gone"
-                app:crs_pl_style="expandable_balls"
-                app:crs_pl_size="medium"
-                app:crs_pl_fg_color="#fff"
-                android:shadowColor="#000000"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="4"
+                android:layout_height="match_parent"
+                app:crs_pl_style="tornado_circle_3"
+                app:crs_pl_size="small"
+                app:crs_pl_fg_color="#bbb"
                 app:crs_pl_bg_color="#000"/>
+        </LinearLayout>
         </LinearLayout>
 
 </FrameLayout>

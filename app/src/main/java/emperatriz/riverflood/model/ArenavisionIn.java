@@ -174,6 +174,7 @@ public class ArenavisionIn implements GestorPagina {
                             case "POR":ln.idioma = Link.POR;break;
                             case "ITA":ln.idioma = Link.ITA;break;
                             case "GER":ln.idioma = Link.GER;break;
+                            case "FRE":ln.idioma = Link.FRA;break;
                         }
                         ev.links.add(ln);
                     }
@@ -245,7 +246,11 @@ public class ArenavisionIn implements GestorPagina {
             avs.put(av,ac);
             for (Evento evento : eventos){
                 for(Link l : evento.links){
-                    try{l.acestream = avs.get(l.url).toString();}catch (Exception ex){}
+                    try{
+                        l.acestream = avs.get(l.url).toString();
+                        l.fps = Link.NOFPS;
+                        l.resolution = Link.NORES;
+                    }catch (Exception ex){}
                 }
             }
             Sys.init().evento.populateLinks(eventos.get(eventoIndex));

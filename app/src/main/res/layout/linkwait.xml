@@ -3,9 +3,10 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="40dp"
+              android:layout_height="44dp"
               android:background="@drawable/link"
-
+              android:paddingBottom="3dp"
+              android:paddingRight="3dp"
               android:id="@+id/link"
     >
 

@@ -24,9 +24,9 @@ public class DetalleEvento extends Activity {
     WebView w;
     ProgressDialog dialog;
     int index;
-    LinearLayout links;
+    LinearLayout empty;
     GridView grid;
-    CrystalPreloader spinkit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +71,10 @@ public class DetalleEvento extends Activity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int screenDensity = metrics.densityDpi;
 
-        spinkit = (CrystalPreloader) findViewById(R.id.spin_kit);
+        empty = (LinearLayout) findViewById(R.id.empty);
         grid = (GridView) findViewById(R.id.grid);
         grid.setNumColumns(getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT?2:screenDensity>350?3:4);
-        grid.setEmptyView(spinkit);
+        grid.setEmptyView(empty);
 
         Sys.init().getSelectedGestor(this).getLinks(index);
 
@@ -82,7 +82,7 @@ public class DetalleEvento extends Activity {
 
     public void populateLinks(Evento evento){
         if (evento.links.size()==0){
-            Toast.makeText(this,"No hay enlaces disponibles", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No hay enlaces disponibles (ಠ_ಠ)", Toast.LENGTH_SHORT).show();
             finish();
         }else{
             if (grid.getAdapter()==null){
