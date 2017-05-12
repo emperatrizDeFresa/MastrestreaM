@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="200dp">
+
+    <ImageView
+        android:id="@+id/imagenDeporte"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:transitionName="fondot"
+/>
+        <LinearLayout
+            android:id="@+id/global"
+            android:transitionName="globalt"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/gradiente"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingTop="2dp"
+            android:paddingBottom="18dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="12dp"
+            android:background="@drawable/gradient"
+            android:transitionName="gradientet"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/hora"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#ffffff"
+                android:textSize="38dp"
+                android:gravity="left|center_vertical"
+                android:fontFamily="sans-serif-condensed"
+                android:shadowColor="#000000"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="2"
+                android:textStyle="bold"
+                android:transitionName="horat"
+                android:text="TextView"/>
+
+
+            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/texto"
+            android:transitionName="textot"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/nombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="54dp"
+                android:textColor="#ffffff"
+                android:gravity="center_horizontal|center_vertical"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="4"
+                android:transitionName="nombret"
+                android:text="TextView"/>
+            <TextView
+                android:id="@+id/competicion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="38dp"
+                android:textColor="#ffffff"
+                android:gravity="center_horizontal|center_vertical"
+                android:maxLines="1"
+                android:fontFamily="sans-serif-condensed"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="3"
+                android:transitionName="competiciont"
+                android:text="TextView"/>
+        </LinearLayout>
+        </LinearLayout>
+</FrameLayout>
+
+
+</LinearLayout>
