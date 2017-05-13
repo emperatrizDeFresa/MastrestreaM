@@ -7,9 +7,13 @@ import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -66,6 +70,7 @@ public class EventoAdapter extends BaseAdapter {
         final TextView hora = (TextView) view.findViewById(R.id.hora);
         final LinearLayout gradiente = (LinearLayout) view.findViewById(R.id.gradiente);
         final LinearLayout global = (LinearLayout) view.findViewById(R.id.global);
+        final LinearLayout eventocompleto = (LinearLayout) view.findViewById(R.id.eventocompleto);
 
         competicion.setText(eventos.get(position).competicion.toUpperCase());
         hora.setText(eventos.get(position).directo?"AHORA":sdf.format(eventos.get(position).hora));
@@ -73,8 +78,11 @@ public class EventoAdapter extends BaseAdapter {
         Typeface sf = Typeface.createFromAsset(context.getAssets(), "SF Movie Poster Condensed Bold.ttf");
         Typeface sf2 = Typeface.createFromAsset(context.getAssets(), "SF Movie Poster.ttf");
         nombre.setTypeface(sf);
+        nombre.setShadowLayer(1f,Sys.getDp(2,context),Sys.getDp(2,context), 0xff000000);
         competicion.setTypeface(sf);
+        competicion.setShadowLayer(1f, Sys.getDp(1.4f,context),Sys.getDp(1.4f,context), 0xff000000);
         hora.setTypeface(sf2);
+        hora.setShadowLayer(1f, Sys.getDp(1.4f,context),Sys.getDp(1.4f,context), 0xff000000);
         final ImageView fondo = (ImageView) view.findViewById(R.id.imagenDeporte);
         final int imagenFondo = eventos.get(position).fondo;
         //fondo.setImageResource(imagenFondo);
@@ -85,6 +93,8 @@ public class EventoAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent i = new Intent(context, DetalleEvento.class);
                 i.putExtra("index", position);
                 i.putExtra("fondo", imagenFondo);
@@ -109,7 +119,42 @@ public class EventoAdapter extends BaseAdapter {
 
 
 
+            }
+        });
 
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    global.setBackgroundColor(0x22ffffff);
+                    ScaleAnimation anim = new ScaleAnimation(0.98f, 1, 0.97f, 1,
+                            Animation.RELATIVE_TO_SELF, 0.5f,
+                            Animation.RELATIVE_TO_SELF, 0.5f);
+                    anim.setDuration(70);
+                    anim.setFillEnabled(true);
+                    anim.setFillAfter(true);
+
+                    anim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            global.setBackgroundColor(0x22000000);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    eventocompleto.startAnimation(anim);
+                }
+
+
+                return false;
             }
         });
 

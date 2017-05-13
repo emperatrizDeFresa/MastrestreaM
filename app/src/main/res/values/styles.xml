@@ -4,4 +4,11 @@
     <style name="AppTheme" parent="android:Theme.Material">
         <item name="android:windowContentTransitions">true</item>
     </style>
+    <style name="CustomDialog" parent="@android:style/Theme.Material.Dialog">
+        <item name="android:windowAnimationStyle">@style/CustomDialogAnimation</item>
+    </style>
+
+    <style name="CustomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim1</item>
+    </style>
 </resources>

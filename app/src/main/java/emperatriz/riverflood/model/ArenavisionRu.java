@@ -148,6 +148,7 @@ public class ArenavisionRu implements GestorPagina {
                 ev.tipo = Evento.DESCONOCIDO;
                 switch (s){
                     case "SOCCER":ev.tipo = Evento.FUTBOL;break;
+                    case "USA MLS":ev.tipo = Evento.FUTBOL;break;
                     case "BASKETBALL":ev.tipo = Evento.BALONCESTO;break;
                     case "TENNIS":ev.tipo = Evento.TENIS;break;
                     case "FORMULA 1":ev.tipo = Evento.F1;break;
@@ -165,7 +166,7 @@ public class ArenavisionRu implements GestorPagina {
 //                        if (!cola.contains(s2) && Sys.init().horaValidaEvento(ev.hora)){
 //                            cola.add(s2);
 //                        }
-                        ln.kbps = 2350;
+                        ln.kbps = 2000;
                         ln.idioma = Link.DESCONOCIDO;
                         switch (s1.replace("]","").split("\\[")[1].trim()){
                             case "SPA":ln.idioma = Link.ESP;break;
@@ -249,7 +250,11 @@ public class ArenavisionRu implements GestorPagina {
             avs.put(av,ac);
             for (Evento evento : eventos){
                 for(Link l : evento.links){
-                    try{l.acestream = avs.get(l.url).toString();}catch (Exception ex){}
+                    try{
+                        l.acestream = avs.get(l.url).toString();
+                        l.fps = Link.NOFPS;
+                        l.resolution = Link.NORES;
+                    }catch (Exception ex){}
                 }
             }
             Sys.init().evento.populateLinks(eventos.get(eventoIndex));

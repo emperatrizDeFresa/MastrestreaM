@@ -72,7 +72,8 @@ public class Panel extends Activity {
 
                 if (gid!=position) {
 
-                    grid.removeAllViewsInLayout();
+                    //grid.removeAllViewsInLayout();
+                    grid.setAdapter(null);
 
                     Sys.init().cargando(Panel.this);
                     Sys.init().getSelectedGestor(Panel.this).parseData();
@@ -155,7 +156,8 @@ public class Panel extends Activity {
 
                 break;
             case R.id.action_refresh:
-                grid.removeAllViewsInLayout();
+                //grid.removeAllViewsInLayout();
+                grid.setAdapter(null);
 
                 Sys.init().cargando(Panel.this);
                 Sys.init().getSelectedGestor(Panel.this).parseDataRefresh();

@@ -73,17 +73,20 @@ public class LinkAdapter extends BaseAdapter {
             LinearLayout link = (LinearLayout) view.findViewById(R.id.link);
             kbps.setText(links.get(position).kbps+" kbps");
             final int imagenFlag = Sys.init().getImagenFlag(links.get(position).idioma);
-            Glide.with(context)
-                    .load(imagenFlag)
-                    .into(flag);
+//            Glide.with(context)
+//                    .load(imagenFlag)
+//                    .into(flag);
             final int imagenRes = Sys.init().getRes(links.get(position).resolution);
-            Glide.with(context)
-                    .load(imagenRes)
-                    .into(res);
+//            Glide.with(context)
+//                    .load(imagenRes)
+//                    .into(res);
             final int imagenFps = Sys.init().getFps(links.get(position).fps);
-            Glide.with(context)
-                    .load(imagenFps)
-                    .into(fps);
+//            Glide.with(context)
+//                    .load(imagenFps)
+//                    .into(fps);
+            flag.setImageResource(imagenFlag);
+            res.setImageResource(imagenRes);
+            fps.setImageResource(imagenFps);
 
             link.setOnClickListener(new View.OnClickListener() {
                 @Override

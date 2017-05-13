@@ -20,10 +20,13 @@ import java.util.HashMap;
 
 import emperatriz.riverflood.Sys;
 
-public class LivesportWs implements GestorPagina {
+public class LivesportWs2 implements GestorPagina {
 
     private HashMap avs = new HashMap();
     private ArrayList<Evento> eventos;
+    private int urlIndex=0;
+    private boolean refresh;
+    private String[] urls = new String[]{"http://livesport.ws/en/live-football","http://livesport.ws/en/basketball","http://livesport.ws/en/tennis"};
 
     @Override
     public String getNombre() {
@@ -32,7 +35,7 @@ public class LivesportWs implements GestorPagina {
 
     @Override
     public int getId() {
-        return 2;
+        return 3;
     }
 
     public String getJavascript() {
@@ -41,18 +44,18 @@ public class LivesportWs implements GestorPagina {
 
     public String getUrl() {
 
-        return "http://livesport.ws/en";
+        return urls[urlIndex++];
     }
 
-    private static LivesportWs instance;
+    private static LivesportWs2 instance;
 
-    public static LivesportWs init(){
+    public static LivesportWs2 init(){
         if (instance==null)
-            instance = new LivesportWs();
+            instance = new LivesportWs2();
         return instance;
     }
 
-    private LivesportWs(){}
+    private LivesportWs2(){}
 
 
     private void parseDataInternal(){
@@ -77,12 +80,13 @@ public class LivesportWs implements GestorPagina {
     }
 
     public void parseData(){
+        refresh=false;
         if (eventos!=null && eventos.size()>0){
             Sys.init().panel.populateGrid(eventos);
         }else{
-
-            eventos = new ArrayList<Evento>();
-
+            if (urlIndex==0){
+                eventos = new ArrayList<Evento>();
+            }
             Sys.init().w.setWebViewClient(new WebViewClient() {
                 @Override
                 public void onPageFinished(WebView view, String url) {
@@ -102,8 +106,10 @@ public class LivesportWs implements GestorPagina {
     }
 
     public void parseDataRefresh(){
-        eventos = new ArrayList<Evento>();
-
+        refresh=true;
+        if (urlIndex==0){
+            eventos = new ArrayList<Evento>();
+        }
         Sys.init().w.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -163,14 +169,12 @@ public class LivesportWs implements GestorPagina {
                     ev.competicion=c.html();
                     Element n = a.getElementsByTag("div").get(0);
                     ev.nombre=n.text().replace("\\n","").trim().replaceAll(" +", " ");
-                    Element icon = a.getElementsByTag("img").get(0);
-                    String tipo = icon.attr("src").replace("\\\"/images/logo/sports/","").replace(".png\\\"","");
-                    ev.tipo = tipo.equals("football")?Evento.FUTBOL:tipo.equals("basketball")?Evento.BALONCESTO:tipo.equals("tennis")?Evento.TENIS:Evento.DESCONOCIDO;
+                    ev.tipo = urlIndex==1?Evento.FUTBOL:urlIndex==2?Evento.BALONCESTO:urlIndex==3?Evento.TENIS:Evento.DESCONOCIDO;
                     ev.fondo = Sys.init().getImagenDeporte(ev.tipo);
                     ev.links = new ArrayList<Link>();
                     ev.url = "http://livesport.ws"+href.replace("\"","").replace("\\","");
 
-                    if ((ev.directo||Sys.init().horaValidaEvento(ev.hora))&&ev.tipo!=Evento.DESCONOCIDO) {
+                    if (ev.directo||Sys.init().horaValidaEvento(ev.hora)) {
                         ret.add(ev);
                     }
                 }else{
@@ -188,8 +192,17 @@ public class LivesportWs implements GestorPagina {
 
 
         eventos.addAll(ret);
-        Sys.init().panel.populateGrid(eventos);
-
+        if (urlIndex<urls.length){
+            if (refresh){
+                parseDataRefresh();
+            }else{
+                parseDataInternal();
+            }
+        }else{
+            urlIndex=0;
+            Collections.sort(eventos, new CustomComparator());
+            Sys.init().panel.populateGrid(eventos);
+        }
 
     }
 

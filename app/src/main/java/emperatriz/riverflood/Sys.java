@@ -17,7 +17,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.util.TypedValue;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -37,8 +40,10 @@ import emperatriz.riverflood.model.ArenavisionIn;
 import emperatriz.riverflood.model.ArenavisionRu;
 import emperatriz.riverflood.model.Evento;
 import emperatriz.riverflood.model.GestorPagina;
+import emperatriz.riverflood.model.LFootballWs;
 import emperatriz.riverflood.model.Link;
 import emperatriz.riverflood.model.LivesportWs;
+import emperatriz.riverflood.model.LivesportWs2;
 
 public class Sys {
 
@@ -90,6 +95,9 @@ public class Sys {
         gestores.add(ArenavisionIn.init());
         gestores.add(ArenavisionRu.init());
         gestores.add(LivesportWs.init());
+        gestores.add(LFootballWs.init());
+
+
     }
 
     public GestorPagina getSelectedGestor(Context context){
@@ -279,13 +287,19 @@ public class Sys {
     private Dialog dialog;
 
     public void cargando(Context context){
-        dialog = new Dialog(context);
+        dialog = new Dialog(context, R.style.CustomDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.waitdialog);
         TextView nombre = (TextView) dialog.findViewById(R.id.nombre);
         Typeface sf = Typeface.createFromAsset(context.getAssets(), "SF Movie Poster Condensed Bold.ttf");
         nombre.setTypeface(sf);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        ScaleAnimation anim = new ScaleAnimation(0.98f, 1, 0.97f, 1,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        anim.setDuration(70);
+        anim.setFillEnabled(true);
+        anim.setFillAfter(true);
 
         dialog.show();
     }
@@ -378,6 +392,10 @@ public class Sys {
         sendIntent.putExtra(Intent.EXTRA_TEXT, "Descarga MasterstreaM desde aquí: http://goo.gl/59McZu");
         sendIntent.setType("text/plain");
         paramActivity.startActivity(sendIntent);
+    }
+
+    public static float getDp(float pixels, Context context){
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, pixels, context.getResources().getDisplayMetrics());
     }
 
 }

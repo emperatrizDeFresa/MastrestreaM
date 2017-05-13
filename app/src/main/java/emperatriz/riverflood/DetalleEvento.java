@@ -63,6 +63,9 @@ public class DetalleEvento extends Activity {
         nombre.setTypeface(sf);
         competicion.setTypeface(sf);
         hora.setTypeface(sf2);
+        nombre.setShadowLayer(1f,Sys.getDp(2,this),Sys.getDp(2,this), 0xff000000);
+        competicion.setShadowLayer(1f, Sys.getDp(1.4f,this),Sys.getDp(1.4f,this), 0xff000000);
+        hora.setShadowLayer(1f, Sys.getDp(1.4f,this),Sys.getDp(1.4f,this), 0xff000000);
         ImageView fondo = (ImageView) findViewById(R.id.imagenDeporte);
         fondo.setImageResource(imagenFondo);
 

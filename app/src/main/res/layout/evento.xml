@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
+              android:id="@+id/eventocompleto"
               android:layout_height="match_parent">
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  android:layout_width="match_parent"
+
                  android:layout_height="200dp">
 
     <ImageView
@@ -19,7 +21,9 @@
             android:transitionName="globalt"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+            android:background="#22000000"
+            >
         <LinearLayout
             android:id="@+id/gradiente"
             android:orientation="horizontal"
@@ -28,21 +32,17 @@
             android:paddingBottom="18dp"
             android:paddingLeft="8dp"
             android:paddingRight="12dp"
-            android:background="@drawable/gradient"
+
             android:transitionName="gradientet"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/hora"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="#ffffff"
                 android:textSize="38dp"
                 android:gravity="left|center_vertical"
                 android:fontFamily="sans-serif-condensed"
-                android:shadowColor="#000000"
-                android:shadowDx="5"
-                android:shadowDy="5"
-                android:shadowRadius="0.1"
                 android:textStyle="bold"
                 android:transitionName="horat"
                 android:text="TextView"/>
@@ -63,10 +63,6 @@
                 android:textSize="54dp"
                 android:textColor="#ffffff"
                 android:gravity="center_horizontal|center_vertical"
-                android:shadowColor="#000000"
-                android:shadowDx="7"
-                android:shadowDy="7"
-                android:shadowRadius="0.1"
                 android:transitionName="nombret"
                 android:text="TextView"/>
             <TextView
@@ -78,10 +74,6 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:maxLines="1"
                 android:fontFamily="sans-serif-condensed"
-                android:shadowColor="#ff000000"
-                android:shadowDx="6"
-                android:shadowDy="6"
-                android:shadowRadius="0.1"
                 android:transitionName="competiciont"
                 android:text="TextView"/>
         </LinearLayout>
