@@ -10,14 +10,18 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -38,7 +42,7 @@ public class LFootballWs implements GestorPagina {
 
     private HashMap avs = new HashMap();
     private ArrayList<Evento> eventos;
-    private String textoRuso="";
+    private ArrayList<String> textoRuso = new ArrayList<String>();
 
     @Override
     public String getNombre() {
@@ -55,7 +59,6 @@ public class LFootballWs implements GestorPagina {
     }
 
     public String getUrl_() {
-        //return "https://translate.google.com/translate?hl=en&sl=auto&tl=en&u=http%3A%2F%2Fwww.lfootball.ws";
         return "http://lfootball.ws";
 
     }
@@ -73,9 +76,8 @@ public class LFootballWs implements GestorPagina {
 
 
     public void parseData(){
-//        Traduce t = new Traduce();
-//        t.execute("МАНЧЕСТЕР СИТИ - ЛЕСТЕР");
-        textoRuso="";
+
+        textoRuso = new ArrayList<String>();
         if (eventos!=null && eventos.size()>0){
             Sys.init().panel.populateGrid(eventos);
         }else{
@@ -101,7 +103,7 @@ public class LFootballWs implements GestorPagina {
     }
 
     public void parseDataRefresh(){
-        textoRuso="";
+        textoRuso = new ArrayList<String>();
         eventos = new ArrayList<Evento>();
 
         Sys.init().w.setWebViewClient(new WebViewClient() {
@@ -161,7 +163,8 @@ public class LFootballWs implements GestorPagina {
                 ev.fondo = Sys.init().getImagenDeporte(ev.tipo);
                 ev.url=u;
 
-                textoRuso+=ev.nombre+". "+ev.competicion+". ";
+                textoRuso.add(ev.nombre);
+                textoRuso.add(ev.competicion);
                 eventos.add(ev);
 
             }catch (Exception ex){
@@ -170,10 +173,7 @@ public class LFootballWs implements GestorPagina {
         }
 
 
-            //Sys.init().panel.populateGrid(eventos);
-        if (textoRuso.length()>0){
-            textoRuso = textoRuso.substring(0, textoRuso.length()-2);
-        }
+
         Traduce t = new Traduce();
         t.execute(textoRuso);
     }
@@ -253,50 +253,67 @@ public class LFootballWs implements GestorPagina {
 
     }
 
-    class Traduce extends AsyncTask<String, String, String> {
+    class Traduce extends AsyncTask<ArrayList<String>, ArrayList<String>, String> {
 
 
-        protected String doInBackground(String... params) {
+        protected String doInBackground(ArrayList<String>... params) {
 
-
+            if (params[0].size()==0){
+                return "";
+            }
             try {
-                String url2 = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170513T131304Z.228f2f52265bc677.1465dc14bd5022195b5b316e39dadf3d39eb5b6d&text="+URLEncoder.encode(params[0],"UTF-8")+"&lang=en";
+                String url2 = "https://translate.yandex.net/api/v1.5/tr.json/translate";
+                String parameters = "key=trnsl.1.1.20170513T131304Z.228f2f52265bc677.1465dc14bd5022195b5b316e39dadf3d39eb5b6d&lang=en";
+                for (String text : params[0]){
+                    parameters += "&text="+URLEncoder.encode(text, "UTF-8");;
+                }
                 URL url = new URL(url2);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream is = urlConnection.getInputStream();
+                urlConnection.setDoOutput(true);
+                urlConnection.setRequestMethod("POST"); // hear you are telling that it is a POST request, which can be changed into "PUT", "GET", "DELETE" etc.
+                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8"); // here you are setting the `Content-Type` for the data you are sending which is `application/json`
+                urlConnection.setRequestProperty( "charset", "utf-8");
+                urlConnection.setRequestProperty( "Content-Length", Integer.toString(parameters.length()));
+                urlConnection.connect();
+
+
                 try {
-                    InputStreamReader isr = new InputStreamReader(is);
-                    BufferedReader bufferedReader = new BufferedReader(isr);
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
+                    DataOutputStream wr = new DataOutputStream(urlConnection.getOutputStream());
+                    wr.writeBytes(parameters);
+                    wr.flush();
+                    wr.close ();
+
+                    Reader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                    StringBuilder sb = new StringBuilder();
+                    for (int c; (c = in.read()) >= 0;)
+                        sb.append((char)c);
+                    return sb.toString();
                 }
                 finally{
                     urlConnection.disconnect();
                 }
             }
             catch(Exception e) {
-                return "";
+                return  "";
             }
+
+
         }
 
         protected void onPostExecute(String response) {
             try{
 
-                String texto = response.substring(response.indexOf("[")+1,response.indexOf("]")-1);
-                texto = texto.replace("[","").replace("]","").replace(".","###").replace("\"","").toUpperCase().replace("SAXONY","BAYERN");
-                int i=0;
-                String[] textos = texto.split("###");
+                response = response.toUpperCase().replace("SAXONY","BAYERN");
+                JSONObject json = new JSONObject(response);
+                JSONArray jArray = json.getJSONArray("TEXT");
 
+                int i=0;
                 for (Evento ev : eventos){
-                    ev.nombre = textos[i++].trim();
-                    ev.competicion = textos[i++].trim();
+                    ev.nombre = jArray.get(i++).toString().trim();
+                    ev.competicion = jArray.get(i++).toString().trim();
                 }
             }catch (Exception ex){
+
             }
 
             Sys.init().panel.populateGrid(eventos);

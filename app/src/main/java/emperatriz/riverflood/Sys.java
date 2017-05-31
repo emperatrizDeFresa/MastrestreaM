@@ -43,7 +43,6 @@ import emperatriz.riverflood.model.GestorPagina;
 import emperatriz.riverflood.model.LFootballWs;
 import emperatriz.riverflood.model.Link;
 import emperatriz.riverflood.model.LivesportWs;
-import emperatriz.riverflood.model.LivesportWs2;
 
 public class Sys {
 
@@ -127,7 +126,7 @@ public class Sys {
         limite.add(Calendar.HOUR,-10);
         long lim2 = limite.getTimeInMillis();;
         long dl = d.getTime();
-        return lim>=dl && lim2<dl;
+        return lim>=dl;// && lim2<dl;
     }
 
     public static String limpia(String st){
@@ -334,7 +333,9 @@ public class Sys {
             String v = in.readLine();
             in.close();
             String versionName = context.getPackageManager() .getPackageInfo(context.getPackageName(), 0).versionName;
-            return !versionName.equals(v);
+            int server = Integer.parseInt(v.replace(".",""));
+            int app = Integer.parseInt(versionName.replace(".",""));
+            return server>app;
         } catch (Exception e) {
             return false;
         }

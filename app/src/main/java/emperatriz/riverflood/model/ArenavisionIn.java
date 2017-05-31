@@ -1,6 +1,7 @@
 package emperatriz.riverflood.model;
 
 
+import android.graphics.Bitmap;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -35,11 +36,11 @@ public class ArenavisionIn implements GestorPagina {
     }
 
     public String getJavascript() {
-        return "(function() { return ('<html><table>'+document.getElementsByTagName('table')[0].innerHTML+'</table></html>'); })();";
+        return "(function() { return ('<html>'+document.getElementsByTagName('html')[0].innerHTML+'</html>'); })();";
     }
 
     public String getUrl() {
-        return "http://www.arenavision.in";
+        return "https://www.arenavision.in";
     }
 
     private static ArenavisionIn instance;
@@ -74,15 +75,19 @@ public class ArenavisionIn implements GestorPagina {
                 Sys.init().w.loadUrl(getUrl());
             }else{
                 Sys.init().w.setWebViewClient(new WebViewClient() {
+
                     @Override
                     public void onPageFinished(WebView view, String url) {
-                        Sys.init().w.evaluateJavascript(getJavascript(),
-                                new ValueCallback<String>() {
-                                    @Override
-                                    public void onReceiveValue(String html) {
-                                        parseDataSchedule(html);
-                                    }
-                                });
+
+                            Sys.init().w.evaluateJavascript(getJavascript(),
+                                    new ValueCallback<String>() {
+                                        @Override
+                                        public void onReceiveValue(String html) {
+                                            parseDataSchedule(html);
+                                        }
+                                    });
+
+
                     }
                 });
 
@@ -119,7 +124,7 @@ public class ArenavisionIn implements GestorPagina {
             String url =  elements.get(0).getElementsByTag("li").get(1).getElementsByTag("a").get(0).attr("href");
             scheduleUrl = getUrl()+url.replace("\\\"","");
         }catch (Exception ex){
-            scheduleUrl="http://www.arenavision.in/-schedule-";
+            scheduleUrl="https://www.arenavision.in/guide";
         }
 
         parseData();

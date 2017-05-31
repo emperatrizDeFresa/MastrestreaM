@@ -57,12 +57,22 @@ public class EventoAdapter extends BaseAdapter {
 
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 
+
+
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.evento, parent, false);
+        }
+
+        String nombreS = eventos.get(position).nombre.toUpperCase();
+        String competicionS = eventos.get(position).competicion.toUpperCase();
+
+        if (nombreS.length()==0){
+            nombreS=competicionS;
+            competicionS="";
         }
 
         final TextView competicion = (TextView) view.findViewById(R.id.competicion);
@@ -72,9 +82,9 @@ public class EventoAdapter extends BaseAdapter {
         final LinearLayout global = (LinearLayout) view.findViewById(R.id.global);
         final LinearLayout eventocompleto = (LinearLayout) view.findViewById(R.id.eventocompleto);
 
-        competicion.setText(eventos.get(position).competicion.toUpperCase());
+        competicion.setText(competicionS);
         hora.setText(eventos.get(position).directo?"AHORA":sdf.format(eventos.get(position).hora));
-        nombre.setText(eventos.get(position).nombre.toUpperCase());
+        nombre.setText(nombreS);
         Typeface sf = Typeface.createFromAsset(context.getAssets(), "SF Movie Poster Condensed Bold.ttf");
         Typeface sf2 = Typeface.createFromAsset(context.getAssets(), "SF Movie Poster.ttf");
         nombre.setTypeface(sf);
@@ -93,8 +103,6 @@ public class EventoAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent i = new Intent(context, DetalleEvento.class);
                 i.putExtra("index", position);
                 i.putExtra("fondo", imagenFondo);

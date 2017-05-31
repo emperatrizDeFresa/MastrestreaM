@@ -161,8 +161,14 @@ public class LivesportWs implements GestorPagina {
                     }
                     Element c = a.getElementsByTag("span").get(2);
                     ev.competicion=c.html();
-                    Element n = a.getElementsByTag("div").get(0);
-                    ev.nombre=n.text().replace("\\n","").trim().replaceAll(" +", " ");
+                    try{
+                        Element n = a.getElementsByTag("div").get(0);
+                        ev.nombre=n.text().replace("\\n","").trim().replaceAll(" +", " ");
+                    }catch (Exception ex){
+                        ev.nombre="";
+                    }
+
+
                     Element icon = a.getElementsByTag("img").get(0);
                     String tipo = icon.attr("src").replace("\\\"/images/logo/sports/","").replace(".png\\\"","");
                     ev.tipo = tipo.equals("football")?Evento.FUTBOL:tipo.equals("basketball")?Evento.BALONCESTO:tipo.equals("tennis")?Evento.TENIS:Evento.DESCONOCIDO;

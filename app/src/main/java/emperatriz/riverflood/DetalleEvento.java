@@ -44,6 +44,11 @@ public class DetalleEvento extends Activity {
         String horaText = getIntent().getStringExtra("hora");
         String nombreText = getIntent().getStringExtra("nombre");
 
+        if (nombreText.length()==0){
+            nombreText=competicionText;
+            competicionText="";
+        }
+
         Window window = getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
