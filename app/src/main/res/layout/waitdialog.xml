@@ -5,31 +5,39 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center_vertical|center_horizontal"
-              android:background="#ff000000"
+              android:background="@drawable/roundedblack"
               android:orientation="vertical"
     >
 <TextView
     android:id="@+id/nombre"
-    android:layout_width="300dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="80dp"
-    android:textColor="#ffffff"
-    android:layout_marginBottom="30dp"
+    android:textSize="70dp"
+    android:textColor="#333333"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     android:gravity="center_horizontal|center_vertical"
     android:text="MasterstreaM"/>
-<!--<com.github.ybq.android.spinkit.SpinKitView-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:id="@+id/spin_kit"-->
-    <!--style="@style/SpinKitView.RotatingPlane"-->
-    <!--android:layout_width="120dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--app:SpinKit_Color="#239fbc" />-->
+    <LinearLayout
+
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+
+                  android:padding="5dp"
+                  android:layout_marginBottom="25dp"
+                  android:orientation="vertical">
     <com.crystal.crystalpreloaders.widgets.CrystalPreloader
+        android:id="@+id/revolvingCircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:crs_pl_style="tornado_circle_3"
         app:crs_pl_size="medium"
-        app:crs_pl_fg_color="#f000a0"
-        app:crs_pl_bg_color="#000"/>
+        app:crs_pl_fg_color="#237fff"
+        app:crs_pl_bg_color="#ffffff"
+
+
+        />
 </LinearLayout>
+    </LinearLayout>

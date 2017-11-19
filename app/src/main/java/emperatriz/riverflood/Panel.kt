@@ -141,8 +141,8 @@ class Panel : Activity() {
                 ad.show()
             }
             R.id.action_refresh -> {
-                //grid.removeAllViewsInLayout();
-                grid!!.adapter = null
+
+                //grid!!.adapter = null
 
                 Sys.init().cargando(this@Panel)
                 Sys.init().getSelectedGestor(this@Panel).parseDataRefresh()
@@ -233,10 +233,7 @@ class Panel : Activity() {
                     Sys.init().selectGestorId(position, this@Panel)
 
                     if (true||gid != position) {
-
-                        //grid.removeAllViewsInLayout();
-                        grid!!.adapter = null
-
+                        //grid!!.adapter = null
                         Sys.init().cargando(this@Panel)
                         Sys.init().getSelectedGestor(this@Panel).parseData()
                     }
@@ -250,6 +247,9 @@ class Panel : Activity() {
             try{
                 val spinnerArrayAdapter = ArrayAdapter(this@Panel, android.R.layout.simple_spinner_item, Sys.init().getGestores())
                 spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                if (Sys.init().getGestores().size==0){
+                    finish()
+                }
                 webs!!.adapter = spinnerArrayAdapter
                 webs!!.setSelection(Sys.init().getSelectedGestor(this@Panel).id)
             }catch (ex:Exception){

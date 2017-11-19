@@ -9,6 +9,6 @@
     </style>
 
     <style name="CustomDialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/anim1</item>
+        <item name="android:windowEnterAnimation">@anim/anim2</item>
     </style>
 </resources>

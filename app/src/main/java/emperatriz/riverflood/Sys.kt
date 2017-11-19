@@ -15,15 +15,18 @@ import android.content.pm.ResolveInfo
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.util.TypedValue
 import android.view.Window
+import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.webkit.WebView
 import android.widget.TextView
 import android.widget.Toast
+import com.crystal.crystalpreloaders.widgets.CrystalPreloader
 import emperatriz.riverflood.model.*
 
 
@@ -278,14 +281,34 @@ class Sys private constructor() {
         val sf = Typeface.createFromAsset(context.assets, "SF Movie Poster Condensed Bold.ttf")
         nombre.typeface = sf
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        val anim = ScaleAnimation(0.98f, 1f, 0.97f, 1f,
-                Animation.RELATIVE_TO_SELF, 0.5f,
-                Animation.RELATIVE_TO_SELF, 0.5f)
-        anim.duration = 70
-        anim.isFillEnabled = true
-        anim.fillAfter = true
+        if ( Calendar.getInstance().get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY){
+            nombre.text = "MartesstreaM"
+        }
+
+        val colors = ArrayList<Int>()
+        colors.add(0xff00ff)
+        colors.add(0xffff00)
+        colors.add(0x00ffff)
+        var i=0
 
         dialog!!.show()
+
+//        var revolvingCircle: CrystalPreloader = dialog!!.findViewById(R.id.revolvingCircle) as CrystalPreloader
+//
+//        val handlerAnim = Handler()
+//        val runnableCode = runnable {
+//            if (estaCargando()){
+//                revolvingCircle.foreground.
+//                handlerAnim.postDelayed(this, 300)
+//            }
+//        }
+//        handlerAnim.postDelayed(runnableCode , 300)
+    }
+
+    fun runnable(body: Runnable.(Runnable)->Unit) = object: Runnable {
+        override fun run() {
+            this.body(this)
+        }
     }
 
     fun estaCargando(): Boolean {
@@ -293,7 +316,9 @@ class Sys private constructor() {
     }
 
     fun cargado() {
-        if (dialog != null && dialog!!.isShowing) dialog!!.dismiss()
+        if (dialog != null && dialog!!.isShowing) {
+            dialog!!.dismiss()
+        }
     }
 
     fun guardaPreferencia(key: String, value: Int, context: Context) {
