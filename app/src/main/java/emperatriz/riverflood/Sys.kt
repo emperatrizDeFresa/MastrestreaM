@@ -101,7 +101,7 @@ class Sys private constructor() {
         Collections.shuffle(atletismo)
         Collections.shuffle(desconocido)
 
-        gestores.add(Arenavision.init())
+        gestores.add(Linkotes.init())
         gestores.add(LivesportWs.init())
         gestores.add(LFootballWs.init())
 
@@ -274,24 +274,27 @@ class Sys private constructor() {
     }
 
     fun cargando(context: Context) {
-        dialog = Dialog(context, R.style.CustomDialog)
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.setContentView(R.layout.waitdialog)
-        val nombre = dialog!!.findViewById(R.id.nombre) as TextView
-        val sf = Typeface.createFromAsset(context.assets, "SF Movie Poster Condensed Bold.ttf")
-        nombre.typeface = sf
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
-        if ( Calendar.getInstance().get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY){
-            nombre.text = "MartesstreaM"
+        if (!estaCargando()){
+            dialog = Dialog(context, R.style.CustomDialog)
+            dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog!!.setContentView(R.layout.waitdialog)
+            val nombre = dialog!!.findViewById(R.id.nombre) as TextView
+            val sf = Typeface.createFromAsset(context.assets, "SF Movie Poster Condensed Bold.ttf")
+            nombre.typeface = sf
+            dialog!!.window!!.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            if ( Calendar.getInstance().get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY){
+                nombre.text = "MartesstreaM"
+            }
+
+            val colors = ArrayList<Int>()
+            colors.add(0xff00ff)
+            colors.add(0xffff00)
+            colors.add(0x00ffff)
+            var i=0
+
+            dialog!!.show()
         }
 
-        val colors = ArrayList<Int>()
-        colors.add(0xff00ff)
-        colors.add(0xffff00)
-        colors.add(0x00ffff)
-        var i=0
-
-        dialog!!.show()
 
 //        var revolvingCircle: CrystalPreloader = dialog!!.findViewById(R.id.revolvingCircle) as CrystalPreloader
 //

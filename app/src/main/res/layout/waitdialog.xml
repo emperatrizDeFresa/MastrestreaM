@@ -13,7 +13,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textSize="70dp"
-    android:textColor="#333333"
+    android:textColor="#222222"
     android:layout_marginBottom="15dp"
     android:layout_marginTop="5dp"
     android:layout_marginLeft="15dp"
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         app:crs_pl_style="tornado_circle_3"
         app:crs_pl_size="medium"
-        app:crs_pl_fg_color="#237fff"
-        app:crs_pl_bg_color="#ffffff"
+        app:crs_pl_fg_color="#222222"
+        app:crs_pl_bg_color="@color/colorAccent"
 
 
         />

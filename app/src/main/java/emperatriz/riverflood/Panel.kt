@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Environment
+import android.os.Looper
 import android.view.ContextThemeWrapper
 import android.view.Menu
 import android.view.MenuInflater
@@ -31,16 +32,21 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.android.extension.responseJson
+import com.github.kittinunf.fuel.core.FuelError
+import com.github.kittinunf.fuel.core.Request
+import com.github.kittinunf.fuel.core.Response
 
 
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.ArrayList
 
 import emperatriz.riverflood.model.Evento
+import org.json.JSONObject
+import java.io.*
+import java.lang.System.out
 
 class Panel : Activity() {
 
@@ -92,7 +98,7 @@ class Panel : Activity() {
         grid!!.numColumns = if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 1 else 2
         grid!!.emptyView = noEvents
 
-
+        Sys.init().cargando(this@Panel)
 
         animacion = findViewById(R.id.waitAnimation) as LinearLayout
 
@@ -194,11 +200,8 @@ class Panel : Activity() {
 
 
         override fun doInBackground(vararg urls: String): Boolean? {
-
             return Sys.init().checkNewVersion(this@Panel)
-
         }
-
 
         override fun onPostExecute(result: Boolean?) {
             if (result!!) {
@@ -236,6 +239,7 @@ class Panel : Activity() {
                         //grid!!.adapter = null
                         Sys.init().cargando(this@Panel)
                         Sys.init().getSelectedGestor(this@Panel).parseData()
+
                     }
                 }
 
@@ -273,6 +277,7 @@ class Panel : Activity() {
         val down = Download()
         down.execute("https://drive.google.com/uc?export=download&id=0BxODOfYE_PuDaFJidXlpMWpLOVE")
     }
+
 
 
     private inner class Download : AsyncTask<String, Int, String>() {

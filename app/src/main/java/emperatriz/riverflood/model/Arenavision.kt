@@ -4,6 +4,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import emperatriz.riverflood.Sys
 import org.jsoup.Jsoup
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -13,9 +14,17 @@ class Arenavision private constructor() : GestorPagina {
     private var cola: Queue<String> = LinkedList()
     private var eventos: ArrayList<Evento>? = null
     private var scheduleUrl = ""
+    private var guide="";
 
     override fun updateUrl(url: String) {
-        this.url=url
+        if (url.contains("@@")){
+            this.url=url.split("@@")[0]
+            this.guide=url.split("@@")[1]
+
+        }else{
+            this.url=url
+        }
+
     }
 
     override val nombre: String
@@ -77,16 +86,17 @@ class Arenavision private constructor() : GestorPagina {
     }
 
     fun parseDataMain(html: String) {
-        var html = html
-        try {
-            html = html.replace("\\u003C", "<")
-            val doc = Jsoup.parse(html)
-            val elements = doc.getElementsByTag("nav")
-            val urlN = elements[0].getElementsByTag("li")[1].getElementsByTag("a")[0].attr("href")
-            scheduleUrl = url + urlN.replace("\\\"", "")
-        } catch (ex: Exception) {
-            scheduleUrl = url+"/guide"
-        }
+//        var html = html
+//        try {
+//            html = html.replace("\\u003C", "<")
+//            val doc = Jsoup.parse(html)
+//            val elements = doc.getElementsByTag("nav")
+//            val urlN = elements[0].getElementsByTag("li")[1].getElementsByTag("a")[0].attr("href")
+//            val last = urlN.lastIndexOf('/')-2
+//            scheduleUrl = url + urlN.replace("\\\"", "").substring(last)
+//        } catch (ex: Exception) {
+            scheduleUrl = url+"/"+guide
+//        }
 
         parseData()
     }
@@ -154,11 +164,14 @@ class Arenavision private constructor() : GestorPagina {
                 if (Sys.init().horaValidaEvento(ev.hora)) {
                     ret.add(ev)
                 }
+                i = i + 6
+            } catch (ex: ParseException) {
+                i = i + 1
             } catch (ex: Exception) {
-                val isd = ex.hashCode()
+                i = i + 6
             }
 
-            i = i + 6
+
         }
         eventos = ret
         Sys.init().panel!!.populateGrid(eventos!!)

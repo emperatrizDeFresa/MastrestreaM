@@ -8,9 +8,9 @@ android {
         applicationId "emperatriz.riverflood"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 8
+        versionCode 11
 
-        versionName "1.09"
+        versionName "1.11"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,6 +34,7 @@ dependencies {
     compile 'com.github.ybq:Android-SpinKit:1.1.0'
     compile 'com.crystal:crystalpreloaders:1.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.github.kittinunf.fuel:fuel-android:1.4.0'
 }
 repositories {
     mavenCentral()
